@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:productos_app/screens/home_screen.dart';
-import 'package:productos_app/screens/login_screen.dart';
+import 'package:productos_app/screens/screens.dart';
 
 void main() => runApp(const MyApp());
 
@@ -17,6 +16,8 @@ class MyApp extends StatelessWidget {
         LoginScreen.routeName: (_) => LoginScreen(),
         HomeScreen.routeName: (_) => HomeScreen(),
       },
+      theme:
+          ThemeData.light().copyWith(scaffoldBackgroundColor: Colors.grey[300]),
     );
   }
 }
