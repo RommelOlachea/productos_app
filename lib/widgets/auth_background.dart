@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AuthBackground extends StatelessWidget {
+  final Widget child;
+
+  const AuthBackground({super.key, required this.child});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -10,7 +14,26 @@ class AuthBackground extends StatelessWidget {
       child: Stack(
         children: [
           _PurpleBox(),
+          _HeaderIcon(),
+          this.child,
         ],
+      ),
+    );
+  }
+}
+
+class _HeaderIcon extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Container(
+        width: double.infinity,
+        margin: const EdgeInsets.only(top: 30),
+        child: const Icon(
+          Icons.person_pin,
+          color: Colors.white,
+          size: 100,
+        ),
       ),
     );
   }
@@ -18,6 +41,10 @@ class AuthBackground extends StatelessWidget {
 
 /*Con double.infinity le estamos diciendo al contenedor que ocupe
 el ancho y el alto de la pantallad el dispositivo */
+
+/*El Widget SafeArea nos permite asegurarnos que el widgets que este
+contenido en el, no tocara el notch del dispositivo en caso de 
+tenerlo */
 
 class _PurpleBox extends StatelessWidget {
   @override
