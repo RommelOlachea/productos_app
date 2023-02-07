@@ -18,15 +18,15 @@ class LoginScreen extends StatelessWidget {
             CardContainer(
               child: Column(
                 children: [
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text(
                     'Login',
                     style: Theme.of(context).textTheme.headline4,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
-                  Text('Formulario')
+                  Text('Formulario'),
                 ],
               ),
             ),
