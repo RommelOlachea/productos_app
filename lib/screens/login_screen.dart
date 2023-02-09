@@ -113,20 +113,30 @@ class _LoginForm extends StatelessWidget {
                   disabledColor: Colors.grey,
                   elevation: 0,
                   color: Colors.deepPurple,
+                  onPressed: loginForm.isLoading
+                      ? null
+                      : () async {
+                          FocusScope.of(context).unfocus();
+
+                          if (!loginForm.isValidForm()) return;
+
+                          loginForm.isLoading = true;
+
+                          await Future.delayed(const Duration(seconds: 2));
+
+                          loginForm.isLoading = false;
+
+                          Navigator.pushReplacementNamed(
+                              context, HomeScreen.routeName);
+                        },
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 80, vertical: 15),
-                    child: const Text(
-                      'Ingresar',
-                      style: TextStyle(color: Colors.white),
+                    child: Text(
+                      loginForm.isLoading ? 'Espere' : 'Ingresar',
+                      style: const TextStyle(color: Colors.white),
                     ),
-                  ),
-                  onPressed: () {
-                    //TODO: login form
-                    if (!loginForm.isValidForm()) return;
-                    Navigator.pushReplacementNamed(
-                        context, HomeScreen.routeName);
-                  })
+                  ))
             ],
           )),
     );
@@ -152,3 +162,8 @@ _LoginForm tendran el acceso al LoginFormProvider   */
 /* el Navigator.pushReplacementName va a destruir el stack de las pantallas y no podremos regresar aunque quisieramos
 regularmente se utiliza para las pantallas de login cuando ya se autentica*/
 
+/*FocusScope.of(context).unfocus() con esta instruccion quitamos el teclado
+de la pantalla cuando presionamos el boton de ingresar */
+
+/*loginForm.isLoading en este set del LoginFormProvider lanzamos el metodo 
+notifyListeners(); para que se redibujen los widgets */
