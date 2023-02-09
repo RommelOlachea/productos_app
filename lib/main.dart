@@ -9,15 +9,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Material App',
-      initialRoute: HomeScreen.routeName,
-      routes: {
-        LoginScreen.routeName: (_) => LoginScreen(),
-        HomeScreen.routeName: (_) => HomeScreen(),
-      },
-      theme:
-          ThemeData.light().copyWith(scaffoldBackgroundColor: Colors.grey[300]),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Material App',
+        initialRoute: HomeScreen.routeName,
+        routes: {
+          LoginScreen.routeName: (_) => LoginScreen(),
+          HomeScreen.routeName: (_) => HomeScreen(),
+        },
+        theme: ThemeData.light().copyWith(
+            scaffoldBackgroundColor: Colors.grey[300],
+            appBarTheme: const AppBarTheme(
+              elevation: 0,
+              color: Colors.indigo,
+            ),
+            floatingActionButtonTheme: FloatingActionButtonThemeData(
+                elevation: 0, backgroundColor: Colors.indigo)));
   }
 }
