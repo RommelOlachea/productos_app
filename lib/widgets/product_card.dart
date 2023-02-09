@@ -36,12 +36,40 @@ class ProductCard extends StatelessWidget {
 class _ProductDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 70,
-      color: Colors.indigo,
+    return Padding(
+      padding: const EdgeInsets.only(right: 50),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        width: double.infinity,
+        height: 70,
+        // color: Colors.indigo,
+        decoration: _buildBoxDecoration(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            Text(
+              'Disco duro G',
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            Text(
+              'Id del disco duro',
+              style: TextStyle(fontSize: 15, color: Colors.white),
+            ),
+          ],
+        ),
+      ),
     );
   }
+
+  BoxDecoration _buildBoxDecoration() => BoxDecoration(
+      color: Colors.indigo,
+      borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(25), topRight: Radius.circular(25)));
 }
 
 class _BackgroundImage extends StatelessWidget {
@@ -65,3 +93,5 @@ class _BackgroundImage extends StatelessWidget {
 
 /*Nota: el FadeInImage nos permitira poner una imagen mientras la que se quedara se carga*/
 /*con fit: BoxFit.cover, expandimos la imagen*/
+
+
