@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:productos_app/screens/screens.dart';
 import 'package:productos_app/widgets/product_card.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -13,7 +14,10 @@ class HomeScreen extends StatelessWidget {
       ),
       body: ListView.builder(
           itemCount: 10,
-          itemBuilder: (BuildContext context, int index) => ProductCard()),
+          itemBuilder: (BuildContext context, int index) => GestureDetector(
+              onTap: () =>
+                  Navigator.pushNamed(context, ProductScreen.routeName),
+              child: ProductCard())),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         child: Icon(Icons.add),
@@ -21,3 +25,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+/*Con el widget GestureDectector sabemos si se hizo el tap en el product card
+para despues redireccionarlo a la pantalla de ProductScreen*/

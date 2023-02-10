@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
         routes: {
           LoginScreen.routeName: (_) => LoginScreen(),
           HomeScreen.routeName: (_) => HomeScreen(),
+          ProductScreen.routeName: (_) => ProductScreen(),
         },
         theme: ThemeData.light().copyWith(
             scaffoldBackgroundColor: Colors.grey[300],
