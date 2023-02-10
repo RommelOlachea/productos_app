@@ -15,6 +15,7 @@ class ProductCard extends StatelessWidget {
           children: [
             _BackgroundImage(),
             _ProductDetails(),
+            Positioned(top: 0, right: 0, child: _PriceTag()),
           ],
         ),
       ),
@@ -31,6 +32,32 @@ class ProductCard extends StatelessWidget {
               blurRadius: 10,
             )
           ]);
+}
+
+class _PriceTag extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: FittedBox(
+        fit: BoxFit.contain,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Text(
+            '\$103.99',
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+        ),
+      ),
+      width: 100,
+      height: 70,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: Colors.indigo,
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(25), bottomLeft: Radius.circular(25)),
+      ),
+    );
+  }
 }
 
 class _ProductDetails extends StatelessWidget {
@@ -93,5 +120,7 @@ class _BackgroundImage extends StatelessWidget {
 
 /*Nota: el FadeInImage nos permitira poner una imagen mientras la que se quedara se carga*/
 /*con fit: BoxFit.cover, expandimos la imagen*/
-
+/*FittedBox nos permite indicarle como queremos que se adapte el 
+widget interno, en este caso es BotFix.contain, hace que el texto
+se adapte al contenido */
 
