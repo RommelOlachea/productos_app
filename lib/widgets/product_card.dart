@@ -16,6 +16,7 @@ class ProductCard extends StatelessWidget {
             _BackgroundImage(),
             _ProductDetails(),
             Positioned(top: 0, right: 0, child: _PriceTag()),
+            Positioned(top: 0, left: 0, child: _NotAvailable()),
           ],
         ),
       ),
@@ -32,6 +33,31 @@ class ProductCard extends StatelessWidget {
               blurRadius: 10,
             )
           ]);
+}
+
+//TODO: Mostrar de manera condicional
+class _NotAvailable extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: FittedBox(
+        fit: BoxFit.contain,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Text(
+            'No Disponible',
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+        ),
+      ),
+      width: 100,
+      height: 70,
+      decoration: BoxDecoration(
+          color: Colors.yellow[800],
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(25), bottomRight: Radius.circular(25))),
+    );
+  }
 }
 
 class _PriceTag extends StatelessWidget {
