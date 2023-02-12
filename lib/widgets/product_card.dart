@@ -162,12 +162,16 @@ class _BackgroundImage extends StatelessWidget {
         width: double.infinity,
         height: 400,
         color: Colors.red,
-        child: FadeInImage(
-          //TODO: fix productos cuando no hay imagen
-          placeholder: AssetImage('assets/jar-loading.gif'),
-          image: NetworkImage(url!),
-          fit: BoxFit.cover,
-        ),
+        child: url == null
+            ? const Image(
+                image: AssetImage('assets/no-image.png'),
+                fit: BoxFit.cover,
+              )
+            : FadeInImage(
+                placeholder: AssetImage('assets/jar-loading.gif'),
+                image: NetworkImage(url!),
+                fit: BoxFit.cover,
+              ),
       ),
     );
   }
