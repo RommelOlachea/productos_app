@@ -11,11 +11,22 @@ class AppState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => ProductsService())],
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => ProductsService(),
+        )
+      ],
       child: MyApp(),
     );
   }
 }
+
+/* cuando creamos el ProducsServive por default la propiedad
+lazy esta en true, lo que significa que no se va a instanciar
+hasta que sea declarado explicitamente en alguna pantalla,
+esto es util, dado que en el login no deberia instanciarse todavia
+cuando creamos la instancia del provider en el HomeScreen es cuando
+se traera los productos */
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

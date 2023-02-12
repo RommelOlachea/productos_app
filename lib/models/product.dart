@@ -12,6 +12,7 @@ class Product {
   String name;
   String? picture;
   double price;
+  String? id;
 
   /*este nos servira para crear una instacia(s) de productos con el json */
   factory Product.fromJson(String str) => Product.fromMap(json.decode(str));
