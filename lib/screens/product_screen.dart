@@ -122,3 +122,4 @@ class _ProductForm extends StatelessWidget {
 /*Nota: utlizamos el SingleChildScrollView para asegurarnos de que se
 pueda hacer scroll si el teclado o algun otro elemento tapa o no alcanza
 a desplegarse en la pantalla */
+

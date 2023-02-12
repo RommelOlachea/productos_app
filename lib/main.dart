@@ -1,7 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:productos_app/screens/screens.dart';
+import 'package:productos_app/services/products_service.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(AppState());
+
+/*Creamos el provider del ProducsService de manera global
+al inicio del arbol de widgets */
+class AppState extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => ProductsService())],
+      child: MyApp(),
+    );
+  }
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
