@@ -7,6 +7,8 @@ class ProductsService extends ChangeNotifier {
   final String _baseUrl = 'flutter-varios-77384-default-rtdb.firebaseio.com';
 
   final List<Product> productos = [];
+  late Product selectedProduct;
+
   bool isLoading = true;
 
   ProductsService() {
@@ -41,3 +43,12 @@ class ProductsService extends ChangeNotifier {
 
 /*El servicio es el que se va a encargar de hacer las peticiones http
 quien va a traer los post por nosotros */
+
+/*con la palabra reservada late, le indicamos al dart que el objeto 
+cuando sea utilizadao si contendra un valor*/
+
+/*Recordemos tambien que en dart, todos los objetos se pasan por 
+referencia, es decir, la referencia modifica al objeto en si, por
+lo que si asiganmos un producto de la lista de productos a una variable
+y modificamos la variable, en realidad estaremos modificando el contenido
+de la lista de productos */
