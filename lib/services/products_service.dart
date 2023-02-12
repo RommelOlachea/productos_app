@@ -14,6 +14,9 @@ class ProductsService extends ChangeNotifier {
   }
 
   Future loadProducts() async {
+    this.isLoading = true; /*indicamos que inicio la carga de Prod*/
+    notifyListeners();
+
     final url = Uri.https(_baseUrl, 'products.json');
     final resp = await http.get(url);
 
@@ -27,15 +30,13 @@ class ProductsService extends ChangeNotifier {
       },
     );
 
-    print(this.productos[0].name);
+    this.isLoading = false; /*Indicamos que finalizo la carga de prod*/
+    notifyListeners();
+    // print(this.productos[0].name);
   }
 
   //TODO: Hacer fetch de productos
 }
-
-
-
-
 
 
 /*El servicio es el que se va a encargar de hacer las peticiones http
