@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 class ProductsService extends ChangeNotifier {
   final String _baseUrl = 'flutter-varios-77384-default-rtdb.firebaseio.com';
 
-  final List<Product> productos = [];
+  final List<Product> products = [];
   late Product selectedProduct;
 
   bool isLoading = true;
@@ -30,7 +30,7 @@ class ProductsService extends ChangeNotifier {
       (key, value) {
         final tempProduct = Product.fromMap(value);
         tempProduct.id = key;
-        this.productos.add(tempProduct);
+        this.products.add(tempProduct);
       },
     );
 
@@ -63,6 +63,9 @@ class ProductsService extends ChangeNotifier {
 
     print(decodedData);
     //TODO: Actualizar la lista de productos
+    final index = products.indexWhere((element) => element.id == product.id);
+    products[index] = product;
+
     return product.id!;
   }
 }
