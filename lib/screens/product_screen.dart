@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:productos_app/providers/product_form_provider.dart';
 import 'package:productos_app/services/services.dart';
 import 'package:productos_app/widgets/product_image.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +13,32 @@ class ProductScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final productService = Provider.of<ProductsService>(context);
 
+    return ChangeNotifierProvider(
+      create: (_) => ProductFormProvider(productService.selectedProduct),
+      child: _ProductScreenBody(productService: productService),
+    );
+
+    /* al extraer en un body el cuerpo del screenproduct, podemos crear
+    el product form provider y en el child tener ProductScreenBody para 
+    que de esta manera elebar el productformprovider al nivel mas alto 
+    y puede ser accedido dentro de todos su widgets, se declaro de una 
+    forma similar que en el login, notese que se creo como parametro del 
+    del _ProductScreenBody el productService y se lo paso al extraerlo, 
+    y el unico motivo por el que hacemos esto, es porque el boton de la 
+    camara esta fuera del widget de donde se creo el Form */
+  }
+}
+
+class _ProductScreenBody extends StatelessWidget {
+  const _ProductScreenBody({
+    super.key,
+    required this.productService,
+  });
+
+  final ProductsService productService;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -68,6 +95,9 @@ class ProductScreen extends StatelessWidget {
 class _ProductForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final productForm = Provider.of<ProductFormProvider>(context);
+    final product = productForm.product;
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: Container(
@@ -81,6 +111,13 @@ class _ProductForm extends StatelessWidget {
               height: 10,
             ),
             TextFormField(
+              initialValue: product.name,
+              onChanged: (value) => product.name = value,
+              validator: (value) {
+                if (value == null || value.length < 1) {
+                  return 'El nombre es obligatorio';
+                }
+              },
               decoration: InputDecorations.authInputDecoration(
                   hintText: 'Nombre del producto', labelText: 'Nombre:'),
             ),
@@ -89,6 +126,14 @@ class _ProductForm extends StatelessWidget {
             ),
             TextFormField(
               keyboardType: TextInputType.number,
+              initialValue: '${product.price}',
+              onChanged: (value) {
+                if (double.tryParse(value) == null) {
+                  product.price = 0;
+                } else {
+                  product.price = double.parse(value);
+                }
+              },
               decoration: InputDecorations.authInputDecoration(
                   hintText: '\$150', labelText: 'Precio:'),
             ),
@@ -96,7 +141,7 @@ class _ProductForm extends StatelessWidget {
               height: 30,
             ),
             SwitchListTile.adaptive(
-                value: true,
+                value: product.available,
                 title: Text('Disponible'),
                 activeColor: Colors.indigo,
                 onChanged: (value) {
