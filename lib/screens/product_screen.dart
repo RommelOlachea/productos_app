@@ -19,7 +19,7 @@ class ProductScreen extends StatelessWidget {
       child: _ProductScreenBody(productService: productService),
     );
 
-    /* al extraer en un body el cuerpo del screenproduct, podemos crear
+    /* al extraer en el body del screenproduct, podemos crear
     el product form provider y en el child tener ProductScreenBody para 
     que de esta manera elebar el productformprovider al nivel mas alto 
     y puede ser accedido dentro de todos su widgets, se declaro de una 
@@ -40,6 +40,8 @@ class _ProductScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final productForm = Provider.of<ProductFormProvider>(context);
+
     return Scaffold(
       body: SingleChildScrollView(
         // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -86,8 +88,10 @@ class _ProductScreenBody extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.save_alt_outlined),
-        onPressed: () {
-          //TODO: guardar producto
+        onPressed: () async {
+          if (!productForm.isValidForm()) return;
+
+          await productService.saveOrCreateProduct(productForm.product);
         },
       ),
     );
@@ -107,54 +111,58 @@ class _ProductForm extends StatelessWidget {
         width: double.infinity,
         decoration: _buildBoxDecoration(),
         child: Form(
+            key: productForm.formKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             child: Column(
-          children: [
-            SizedBox(
-              height: 10,
-            ),
-            TextFormField(
-              initialValue: product.name,
-              onChanged: (value) => product.name = value,
-              validator: (value) {
-                if (value == null || value.length < 1) {
-                  return 'El nombre es obligatorio';
-                }
-              },
-              decoration: InputDecorations.authInputDecoration(
-                  hintText: 'Nombre del producto', labelText: 'Nombre:'),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            TextFormField(
-              keyboardType: TextInputType.number,
-              initialValue: '${product.price}',
-              inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\.?\d{0,2}'))
+              children: [
+                SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  initialValue: product.name,
+                  onChanged: (value) => product.name = value,
+                  validator: (value) {
+                    if (value == null || value.length < 1) {
+                      return 'El nombre es obligatorio';
+                    }
+                  },
+                  decoration: InputDecorations.authInputDecoration(
+                      hintText: 'Nombre del producto', labelText: 'Nombre:'),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  initialValue: '${product.price}',
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(
+                        RegExp(r'^(\d+)?\.?\d{0,2}'))
+                  ],
+                  onChanged: (value) {
+                    if (double.tryParse(value) == null) {
+                      product.price = 0;
+                    } else {
+                      product.price = double.parse(value);
+                    }
+                  },
+                  decoration: InputDecorations.authInputDecoration(
+                      hintText: '\$150', labelText: 'Precio:'),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                SwitchListTile.adaptive(
+                    value: product.available,
+                    title: Text('Disponible'),
+                    activeColor: Colors.indigo,
+                    onChanged: (value) =>
+                        productForm.updateAvailability(value)),
+                SizedBox(
+                  height: 30,
+                ),
               ],
-              onChanged: (value) {
-                if (double.tryParse(value) == null) {
-                  product.price = 0;
-                } else {
-                  product.price = double.parse(value);
-                }
-              },
-              decoration: InputDecorations.authInputDecoration(
-                  hintText: '\$150', labelText: 'Precio:'),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            SwitchListTile.adaptive(
-                value: product.available,
-                title: Text('Disponible'),
-                activeColor: Colors.indigo,
-                onChanged: (value) => productForm.updateAvailability(value)),
-            SizedBox(
-              height: 30,
-            ),
-          ],
-        )),
+            )),
       ),
     );
   }

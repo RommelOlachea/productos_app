@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:productos_app/models/models.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,6 +11,7 @@ class ProductsService extends ChangeNotifier {
   late Product selectedProduct;
 
   bool isLoading = true;
+  bool isSaving = false;
 
   ProductsService() {
     this.loadProducts();
@@ -37,7 +39,32 @@ class ProductsService extends ChangeNotifier {
     // print(this.productos[0].name);
   }
 
-  //TODO: Hacer fetch de productos
+  Future saveOrCreateProduct(Product product) async {
+    isSaving = true;
+    notifyListeners();
+
+    if (product.id == null) {
+      //Es necesario crear el producto
+    } else {
+      //actualizamos el producto
+      await updateProduct(product);
+    }
+
+    isSaving = false;
+    notifyListeners();
+  }
+
+  Future<String> updateProduct(Product product) async {
+    /*Para llegar al nodo del producto a actualizar debemos
+    agregar el id del nodo en el segmento */
+    final url = Uri.https(_baseUrl, 'products/${product.id}.json');
+    final resp = await http.put(url, body: product.toJson());
+    final decodedData = resp.body;
+
+    print(decodedData);
+    //TODO: Actualizar la lista de productos
+    return product.id!;
+  }
 }
 
 
