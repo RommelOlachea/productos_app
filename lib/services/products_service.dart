@@ -45,6 +45,7 @@ class ProductsService extends ChangeNotifier {
 
     if (product.id == null) {
       //Es necesario crear el producto
+      await createProduct(product);
     } else {
       //actualizamos el producto
       await updateProduct(product);
@@ -68,8 +69,21 @@ class ProductsService extends ChangeNotifier {
 
     return product.id!;
   }
-}
 
+  Future<String> createProduct(Product product) async {
+    final url = Uri.https(_baseUrl, 'products.json');
+    final resp =
+        await http.post(url, body: product.toJson()); //metodo post para agregar
+    final decodedData =
+        json.decode(resp.body); //pasamos el json string a un mapa
+    /*nota en el decodeData en la propiedad name, tenemos el id, regresado
+    por firebase*/
+    product.id = decodedData['name'];
+    products.add(product);
+
+    return product.id!;
+  }
+}
 
 /*El servicio es el que se va a encargar de hacer las peticiones http
 quien va a traer los post por nosotros */
