@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:productos_app/providers/product_form_provider.dart';
 import 'package:productos_app/services/services.dart';
 import 'package:productos_app/widgets/product_image.dart';
-import 'package:provider/provider.dart';
 
 import '../ui/input_decoration.dart';
 
@@ -41,6 +42,7 @@ class _ProductScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Column(
           children: [
             Stack(
@@ -127,6 +129,9 @@ class _ProductForm extends StatelessWidget {
             TextFormField(
               keyboardType: TextInputType.number,
               initialValue: '${product.price}',
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\.?\d{0,2}'))
+              ],
               onChanged: (value) {
                 if (double.tryParse(value) == null) {
                   product.price = 0;
@@ -144,9 +149,7 @@ class _ProductForm extends StatelessWidget {
                 value: product.available,
                 title: Text('Disponible'),
                 activeColor: Colors.indigo,
-                onChanged: (value) {
-                  //TODO: pendiente
-                }),
+                onChanged: (value) => productForm.updateAvailability(value)),
             SizedBox(
               height: 30,
             ),
@@ -174,3 +177,10 @@ class _ProductForm extends StatelessWidget {
 pueda hacer scroll si el teclado o algun otro elemento tapa o no alcanza
 a desplegarse en la pantalla */
 
+/*inputFormatters , nos permite poner diferentes reglas para darle 
+formato al valor del campo */
+
+/*si queremos que el teclado se oculte cuando hacemos scroll en el 
+formulario, utilizamos la propiedad del scrollviewchild 
+keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag, para 
+que se oculte con el scroll, pero esto es a consideracion cuando sea practico */
