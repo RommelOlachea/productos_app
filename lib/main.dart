@@ -52,3 +52,6 @@ class MyApp extends StatelessWidget {
                 elevation: 0, backgroundColor: Colors.indigo)));
   }
 }
+
+/*El servicio que utilizamos para almacenar y visualizar las imagenes
+mediante api rest es claudinary */
