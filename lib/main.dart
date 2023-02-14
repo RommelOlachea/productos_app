@@ -55,3 +55,20 @@ class MyApp extends StatelessWidget {
 
 /*El servicio que utilizamos para almacenar y visualizar las imagenes
 mediante api rest es claudinary */
+
+/*
+ para configurar el image_picker
+ en android al menos se utiliza la version 18 del sdk
+ en ios se agregan las siguientes entradas para pedir permisos 
+ 	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Necesito acceso a la libreria para seleccionar fotos</string>
+
+	<key>NSCameraUsageDescription</key>
+	<string>Necesito acceso a la camará para tomar fotos</string>
+
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Necesito acceso al microfono para tomar video</string>
+
+  en el archivo ios/runner/info.plist
+  
+*/
