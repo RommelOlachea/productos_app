@@ -71,7 +71,9 @@ class _ProductScreenBody extends StatelessWidget {
                       //TODO: Camara o galeria
                       final picker = new ImagePicker();
                       final PickedFile? pickedFile = await picker.getImage(
-                          source: ImageSource.camera, imageQuality: 100);
+                          source: ImageSource.gallery,
+                          //source: ImageSource.camera,
+                          imageQuality: 100);
                       //el parametro source me permite seleccionar, entre la camara o
                       //la galeria
 
@@ -80,6 +82,8 @@ class _ProductScreenBody extends StatelessWidget {
                         return;
                       } else {
                         print('Tenemos imagen ${pickedFile.path}');
+                        productService
+                            .updateSelectedProductImage(pickedFile.path);
                       }
                     },
                     icon: Icon(

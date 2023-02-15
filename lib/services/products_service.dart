@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:productos_app/models/models.dart';
@@ -9,6 +10,8 @@ class ProductsService extends ChangeNotifier {
 
   final List<Product> products = [];
   late Product selectedProduct;
+
+  File? newPictureFile;
 
   bool isLoading = true;
   bool isSaving = false;
@@ -82,6 +85,17 @@ class ProductsService extends ChangeNotifier {
     products.add(product);
 
     return product.id!;
+  }
+
+  /*con este metodo cargamos la imagen seleccionada, ya sea de la galeria
+  o de la camara, en el producto seleccionado, pero todavia no la guardamos 
+  en la nube, solo me sirve para mostrasrla en el ProductScreen*/
+  void updateSelectedProductImage(String path) {
+    this.selectedProduct.picture = path;
+    //este tiene el archivo con la imagen, para subirla a Cloudinary
+    this.newPictureFile = File.fromUri(Uri(path: path));
+
+    notifyListeners();
   }
 }
 
