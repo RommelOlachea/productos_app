@@ -97,6 +97,27 @@ class ProductsService extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  Future<String?> uploadImage() async {
+    if (this.newPictureFile == null) {
+      return null;
+    }
+
+    this.isSaving = true;
+    notifyListeners();
+
+    final url = Uri.parse(
+        'https://api.cloudinary.com/v1_1/dfpteejk3/image/upload?upload_preset=wanwuerd');
+
+    final imageUploadRequest = http.MultipartRequest('POST', url);
+
+    final file =
+        await http.MultipartFile.fromPath('file', newPictureFile!.path);
+
+    imageUploadRequest.files.add(file);
+
+    //final streamResponse continuar....
+  }
 }
 
 /*El servicio es el que se va a encargar de hacer las peticiones http
