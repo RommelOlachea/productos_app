@@ -1,16 +1,16 @@
 # productos_app
 
-A new Flutter project.
+Proyecto en Flutter que nos permite ejemplificar el acceso a la camara, y galleria del dispositivo,
+asi como tambien operaciones CRUD en servicios rest, en Clouddinary (para imagenes) y Firebase para
+almacenar la data
 
-## Getting Started
+Tambien hace uso del globalKey para validar formularios
 
-This project is a starting point for a Flutter application.
+## Dependencias
 
-A few resources to get you started if this is your first Flutter project:
+Dependencias del proyecto
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- http: ^0.13.5
+-  image_picker: ^0.8.6+1
+-  provider: ^6.0.5
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

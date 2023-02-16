@@ -71,8 +71,8 @@ class _ProductScreenBody extends StatelessWidget {
                       //TODO: Camara o galeria
                       final picker = new ImagePicker();
                       final PickedFile? pickedFile = await picker.getImage(
-                          source: ImageSource.gallery,
-                          //source: ImageSource.camera,
+                          //source: ImageSource.gallery,
+                          source: ImageSource.camera,
                           imageQuality: 100);
                       //el parametro source me permite seleccionar, entre la camara o
                       //la galeria
@@ -221,3 +221,5 @@ formato al valor del campo */
 formulario, utilizamos la propiedad del scrollviewchild 
 keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag, para 
 que se oculte con el scroll, pero esto es a consideracion cuando sea practico */
+
+/*NOTA: PARA PODER EJECUTAR EN IPHONE FISICAMENTE, DEBEMOS REALIZAR LA FIRMA 241 DEL CURSO*/
