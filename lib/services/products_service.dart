@@ -116,7 +116,19 @@ class ProductsService extends ChangeNotifier {
 
     imageUploadRequest.files.add(file);
 
-    //final streamResponse continuar....
+    final streamResponse = await imageUploadRequest.send();
+    final resp = await http.Response.fromStream(streamResponse);
+
+    if (resp.statusCode != 200 && resp.statusCode != 201) {
+      print('Algo salio mal');
+      print(resp.body);
+      return null;
+    }
+
+    this.newPictureFile = null;
+
+    final decodeData = json.decode(resp.body);
+    return decodeData['secure_url'];
   }
 }
 
