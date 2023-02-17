@@ -16,13 +16,21 @@ class AuthService extends ChangeNotifier {
     };
 
     //el mapa que contiene el key, es el argumento enviado, este caso el apikey token
-    final url = Uri.https(
-        _baseUrl, '/v1/accounts:signInWithPassword', {'key': _firebaseToken});
+    //si retornamos algo es un error
+    final url =
+        Uri.https(_baseUrl, '/v1/accounts:signUp', {'key': _firebaseToken});
 
     final resp = await http.post(url, body: json.encode(authData));
     final Map<String, dynamic> decodeResp = json.decode(resp.body);
 
-    print(decodeResp);
+    if (decodeResp.containsKey('idToken')) {
+      // todo: grabar token en un lugar seguro
+      //return decodeResp['idToken'];
+      return null;
+    } else {
+      //regresamos el error de la respuesta
+      return decodeResp['error']['message'];
+    }
   }
 }
 

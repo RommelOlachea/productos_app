@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:productos_app/screens/screens.dart';
 import 'package:productos_app/services/products_service.dart';
+import 'package:productos_app/services/services.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(AppState());
@@ -13,8 +14,11 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
+          create: (_) => AuthService(),
+        ),
+        ChangeNotifierProvider(
           create: (_) => ProductsService(),
-        )
+        ),
       ],
       child: MyApp(),
     );

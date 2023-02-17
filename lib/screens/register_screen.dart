@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:productos_app/providers/login_form_provider.dart';
 import 'package:productos_app/screens/home_screen.dart';
 import 'package:productos_app/screens/screens.dart';
+import 'package:productos_app/services/services.dart';
 import 'package:provider/provider.dart';
 import 'package:productos_app/ui/input_decoration.dart';
 import 'package:productos_app/widgets/widgets.dart';
@@ -126,17 +127,26 @@ class _LoginForm extends StatelessWidget {
                       ? null
                       : () async {
                           FocusScope.of(context).unfocus();
-
+                          //si instanciamos en un metodo, es una buena practica que el listen este en false;
+                          final authService =
+                              Provider.of<AuthService>(context, listen: false);
                           if (!loginForm.isValidForm()) return;
 
                           loginForm.isLoading = true;
 
-                          await Future.delayed(const Duration(seconds: 2));
+                          // await Future.delayed(const Duration(seconds: 2));
+                          final String? errorMessage = await authService
+                              .createUser(loginForm.email, loginForm.password);
+
+                          if (errorMessage == null) {
+                            Navigator.pushReplacementNamed(
+                                context, HomeScreen.routeName);
+                          } else {
+                            //TODO: mostrar error en pantalla
+                            print(errorMessage);
+                          }
 
                           loginForm.isLoading = false;
-
-                          Navigator.pushReplacementNamed(
-                              context, HomeScreen.routeName);
                         },
                   child: Container(
                     padding: const EdgeInsets.symmetric(
