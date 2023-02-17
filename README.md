@@ -4,7 +4,11 @@ Proyecto en Flutter que nos permite ejemplificar el acceso a la camara, y galler
 asi como tambien operaciones CRUD en servicios rest, en Clouddinary (para imagenes) y Firebase para
 almacenar la data
 
-Tambien hace uso del globalKey para validar formularios
+- Tambien hace uso del globalKey para validar formularios
+- Firebase Auth Rest API
+- Manejo de Tokens
+- Alertas
+- Habilitar autenticación en Firebase
 
 ## Dependencias
 
