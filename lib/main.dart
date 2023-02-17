@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Material App',
-        initialRoute: HomeScreen.routeName,
+        initialRoute: LoginScreen.routeName,
         routes: {
           LoginScreen.routeName: (_) => LoginScreen(),
           HomeScreen.routeName: (_) => HomeScreen(),
