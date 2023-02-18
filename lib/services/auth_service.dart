@@ -32,9 +32,39 @@ class AuthService extends ChangeNotifier {
       return decodeResp['error']['message'];
     }
   }
+
+  Future<String?> login(String email, String password) async {
+    //Creamos el mapa que se enviara como data en el metodo post
+    final Map<String, dynamic> authData = {
+      'email': email,
+      'password': password
+    };
+
+    //el mapa que contiene el key, es el argumento enviado, este caso el apikey token
+    //si retornamos algo es un error
+    final url = Uri.https(
+        _baseUrl, '/v1/accounts:signInWithPassword', {'key': _firebaseToken});
+
+    final resp = await http.post(url, body: json.encode(authData));
+    final Map<String, dynamic> decodeResp = json.decode(resp.body);
+
+    if (decodeResp.containsKey('idToken')) {
+      // todo: grabar token en un lugar seguro
+      //return decodeResp['idToken'];
+      return null;
+    } else {
+      //regresamos el error de la respuesta
+      return decodeResp['error']['message'];
+    }
+  }
 }
 
 /*liga con la documentacion sobre la autenticacion con email y password en firebase
 https://firebase.google.com/docs/reference/rest/auth?hl=es-419#section-sign-in-email-password
 configuracion en el ep. 247
+
+La parte de la documentacion que se utiliza es solamente es Registrese con correo electronico
+y contrasena, y la de Iniciar sesion con correo electronico y contrasena 
+
+
 */

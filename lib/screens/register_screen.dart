@@ -144,9 +144,8 @@ class _LoginForm extends StatelessWidget {
                           } else {
                             //TODO: mostrar error en pantalla
                             print(errorMessage);
+                            loginForm.isLoading = false;
                           }
-
-                          loginForm.isLoading = false;
                         },
                   child: Container(
                     padding: const EdgeInsets.symmetric(

@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:productos_app/ui/input_decoration.dart';
 import 'package:productos_app/widgets/widgets.dart';
 
+import '../services/services.dart';
+
 class LoginScreen extends StatelessWidget {
   static const String routeName = 'Login';
   const LoginScreen({Key? key}) : super(key: key);
@@ -126,17 +128,25 @@ class _LoginForm extends StatelessWidget {
                       ? null
                       : () async {
                           FocusScope.of(context).unfocus();
-
+                          //si instanciamos en un metodo, es una buena practica que el listen este en false;
+                          final authService =
+                              Provider.of<AuthService>(context, listen: false);
                           if (!loginForm.isValidForm()) return;
 
                           loginForm.isLoading = true;
 
-                          await Future.delayed(const Duration(seconds: 2));
+                          // await Future.delayed(const Duration(seconds: 2));
+                          final String? errorMessage = await authService.login(
+                              loginForm.email, loginForm.password);
 
-                          loginForm.isLoading = false;
-
-                          Navigator.pushReplacementNamed(
-                              context, HomeScreen.routeName);
+                          if (errorMessage == null) {
+                            Navigator.pushReplacementNamed(
+                                context, HomeScreen.routeName);
+                          } else {
+                            //TODO: mostrar error en pantalla
+                            print(errorMessage);
+                            loginForm.isLoading = false;
+                          }
                         },
                   child: Container(
                     padding: const EdgeInsets.symmetric(
