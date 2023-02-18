@@ -9,12 +9,14 @@ almacenar la data
 - Manejo de Tokens
 - Alertas
 - Habilitar autenticación en Firebase
+- Guardamos la informacion del token en el Secure Storage
 
 ## Dependencias
 
 Dependencias del proyecto
 
-- http: ^0.13.5
+-  flutter_secure_storage: ^8.0.0
+-  http: ^0.13.5
 -  image_picker: ^0.8.6+1
 -  provider: ^6.0.5
 
