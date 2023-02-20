@@ -145,6 +145,7 @@ class _LoginForm extends StatelessWidget {
                           } else {
                             //TODO: mostrar error en pantalla
                             print(errorMessage);
+                            NotificationsService.showSnackbar(errorMessage);
                             loginForm.isLoading = false;
                           }
                         },
