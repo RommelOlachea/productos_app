@@ -14,7 +14,8 @@ class AuthService extends ChangeNotifier {
     //Creamos el mapa que se enviara como data en el metodo post
     final Map<String, dynamic> authData = {
       'email': email,
-      'password': password
+      'password': password,
+      'returnSecureToken': true,
     };
 
     //el mapa que contiene el key, es el argumento enviado, este caso el apikey token
@@ -40,7 +41,8 @@ class AuthService extends ChangeNotifier {
     //Creamos el mapa que se enviara como data en el metodo post
     final Map<String, dynamic> authData = {
       'email': email,
-      'password': password
+      'password': password,
+      'returnSecureToken': true,
     };
 
     //el mapa que contiene el key, es el argumento enviado, este caso el apikey token

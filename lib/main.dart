@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Material App',
-        initialRoute: CheckAuthScreen.routName,
+        initialRoute: LoginScreen.routeName,
         routes: {
           LoginScreen.routeName: (_) => LoginScreen(),
           RegisterScreen.routeName: (_) => RegisterScreen(),
@@ -78,4 +78,16 @@ mediante api rest es claudinary */
 
   en el archivo ios/runner/info.plist
   
+*/
+
+/* en firebase, modificamos las reglas, para decirle a la databaserealtime
+que al menos debe existir una autenticacion para poder leer y escribir: 
+
+{
+  "rules": {
+    ".read": "auth != null",  // 2023-3-13
+    ".write": "auth != null",  // 2023-3-13
+  }
+}
+
 */
