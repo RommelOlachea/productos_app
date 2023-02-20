@@ -67,6 +67,11 @@ class AuthService extends ChangeNotifier {
 
     return;
   }
+
+  //tratamos de leer el token, si no lo encontramos regresamos vacio
+  Future<String> readToken() async {
+    return await storage.read(key: 'token') ?? '';
+  }
 }
 
 /*liga con la documentacion sobre la autenticacion con email y password en firebase
